@@ -1,0 +1,10 @@
+<div class="container ">
+	<div class="row is-flex" style="margin:10px;">
+		<div class="col-xs-12 col-sm-6">
+			<%= image_tag @user.avatar.url, :class => "img-rounded img-fluid thumbnail", :style => "width:100%;" %>
+		</div>
+		<div class="col-xs-12 col-sm-6 thumbnail">	
+			<%= @user.text %>
+		</div>	
+	</div>	
+</div>		
