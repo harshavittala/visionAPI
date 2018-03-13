@@ -19,13 +19,14 @@ class UsersController < ApplicationController
 
   def create
   	project_id = "stvision-196806"
-		vision = Google::Cloud::Vision.new project: project_id
-		image = vision.image params[:user][:avatar].tempfile
+  	key_file   = "/home/bheemarao/NightHack/StVision-72e4b474e3ed.json"
+		vision = Google::Cloud::Vision.new project: project_id, keyfile: key_file
+		image = vision.image params[:avatar].tempfile
 		image.context.languages = ["en"]
-		text = image.text
+		document = image.document
 
   	@user = User.new(user_params)
-  	@user.text = text
+  	@user.text = document.text
   	respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'image was successfully uploaded.' }
@@ -43,7 +44,7 @@ class UsersController < ApplicationController
 
   private
     def user_params
-      params.require(:user).permit(:avatar, :text)
+      params.permit(:avatar)
     end
 
     def set_user
